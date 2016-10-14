@@ -1,0 +1,53 @@
+body {
+  background-color:#fff;
+  /* 1da1f2 twitterBlue*/
+  /*color: #292f33;*/
+  font-size: 16px;
+  line-height: 18px;
+  overflow-y: scroll;
+}
+
+#header {
+  font-size: 24px;
+  padding: 5px 5px 5px 15px;
+}
+
+#logo {
+  padding-right: 10px;
+  /* Horizontally reverses the birdy — mindblowing? YES */
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}
+
+.tweet {
+  background: #f5f8fa;
+  border-bottom: 1px solid #e1e8ed;
+  border-right: 1px dashed #e1e8ed;
+}
+
+.user {
+  color: #3B94D9;
+  font-weight: bold;
+}
+
+.user-head, .tweet {
+  padding: 20px 20px 11.6px 20px;
+}
+
+.date {
+  color: gray;
+  font-weight: lighter;
+}
+
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+#tweet-container {}
+
