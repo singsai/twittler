@@ -93,9 +93,12 @@
               click: function(){ displayTweetsForUser( tweet.user );return false;}
           }).appendTo($tweetContainer);
 
-          // var $tweet = $('<div class="tweet">' + '<p><a onclick="displayTweetsForUser(' + "\"" + tweet.user + "\"" +
-          //   ')"' + ' href="#"' + 'class="user">@' + tweet.user + ': </a></p>' + tweet.message + '</div>');
-
+          //Highlighting!
+          $tweet.mouseenter(function() {
+            $( this ).addClass('highlight');
+          }).mouseleave(function() {
+            $( this ).removeClass('highlight');
+          });
           $tweet.prependTo($tweetContainer);
         };
 
@@ -109,7 +112,6 @@
               displayTweet(i);
               //console.log(diff);
             }
-
             setTotalTweets();
             //currentData['totalTweets'] = streams.home.length;
           }

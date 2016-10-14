@@ -28,6 +28,12 @@ body {
   border-right: 1px dashed #e1e8ed;
 }
 
+.highlight {
+  background: #bbdbf1;
+/*  border-bottom: 1px solid #e1e8ed;
+  border-right: 1px dashed #e1e8ed;
+*/}
+
 .user {
   color: #3B94D9;
   font-weight: bold;
