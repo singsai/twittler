@@ -24,53 +24,28 @@
 
         setTotalTweets();
 
-
-        //$("#closeLink").click(closeIt);
-
         function setTotalTweets() {
           currentData['totalTweets'] = streams.home.length;
         }
 
         function displayTweetsForUser(user) {
           var userUrl = streams.users[user];
-          //userUrl.replace(/['"]+/g, '')
-
-          // var functionBody = userUrl.replace(/['"]+/g, '')
-          // var functionName = new Function (functionBody);
-
-          //return functionName();
-
-          //var tweet = streams.home[number];
-
           $tweetContainer.empty();
-
-          //$tweetContainer = ' ';
-          //$user.prependTo($tweetContainer);
-          //$tweet.prepend("ello");
 
           var n = 0;
           if(userUrl) {
             while (userUrl.length > n) {
               var tweet = (userUrl[n]);
-              var $tweet = $('<div class="tweet">' + tweet.message + ' <span class="date">' + displayDate(tweet.created_at) + '</span></div>');
-              $tweet.prependTo($tweetContainer);
+              var $tweet = $('<div>',{
+                  class: 'tweet',
+                  html: '<p class="user"><a href="#">@' + tweet.user + '</a> <span class="date">' + displayDate(tweet.created_at) + '</span></p>' + tweet.message,
+                  href: '#',
+                  click: function(){ location.reload();return false;}
+              }).appendTo($tweetContainer);
               n++;
             }
 
-            var $user = $('<p ' +  'class="user user-head"><a href="#">@' + user + '</a></p>');
-            $user.prependTo($tweetContainer);
-
-            $user.click(function() {
-              location.reload();
-            });
-
             clearTimeout(checkForTweetsTimer);
-            //return userUrl.length;
-            // var fu = function() {
-
-            // }
-            //fu();
-            //return JSON.parse(userUrl);
           };
         }
 
@@ -99,6 +74,7 @@
           }).mouseleave(function() {
             $( this ).removeClass('highlight');
           });
+
           $tweet.prependTo($tweetContainer);
         };
 
@@ -110,20 +86,15 @@
 
             for(var i = prevCount; i < currCount; i++) {
               displayTweet(i);
-              //console.log(diff);
             }
             setTotalTweets();
-            //currentData['totalTweets'] = streams.home.length;
           }
 
 
           checkForTweetsTimer = setTimeout(checkForTweets, 4000);
-          //$('.user').click(displayTweetsForUser($(this).id)); //on('click', displayTweetsForUser(this.id));
         }
 
-
         var $body = $('body');
-        //$body.html('');
 
         var index = streams.home.length - 1;
         while(index >= 0){
@@ -134,8 +105,6 @@
         checkForTweets();
       })
     })();
-
-
     </script>
   </body>
 </html>
