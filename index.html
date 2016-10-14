@@ -1,10 +1,138 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>singsai</title>
-</head>
-<body>
-  <h3>Projects</h3>
-  <a href="https://singsai.github.io/twittler">Twittler</a>
-</body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="twittler.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <script src="jquery.js"></script>
+    <script src="data_generator.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <title>Twittler</title>
+  </head>
+  <section id="header"><h1><i id="logo" class="fa fa-twitter" aria-hidden="true"></i> Twittler</h1></section>
+  <body>
+    <section id="tweet-container"</section>
+    <script>
+    (function() {
+      $(document).ready(function(){
+        window.displayTweetsForUser = displayTweetsForUser;
+        window.clearTimeout = clearTimeout;
+        window.checkForTweetsTimer = checkForTweetsTimer;
+
+        var currentData = {};
+        var $tweetContainer = $('#tweet-container');
+        var checkForTweetsTimer;
+
+        setTotalTweets();
+
+
+        //$("#closeLink").click(closeIt);
+
+        function setTotalTweets() {
+          currentData['totalTweets'] = streams.home.length;
+        }
+
+        function displayTweetsForUser(user) {
+          var userUrl = streams.users[user];
+          //userUrl.replace(/['"]+/g, '')
+
+          // var functionBody = userUrl.replace(/['"]+/g, '')
+          // var functionName = new Function (functionBody);
+
+          //return functionName();
+
+          //var tweet = streams.home[number];
+
+          $tweetContainer.empty();
+
+          //$tweetContainer = ' ';
+          //$user.prependTo($tweetContainer);
+          //$tweet.prepend("ello");
+
+          var n = 0;
+          if(userUrl) {
+            while (userUrl.length > n) {
+              var tweet = (userUrl[n]);
+              var $tweet = $('<div class="tweet">' + tweet.message + ' <span class="date">' + displayDate(tweet.created_at) + '</span></div>');
+              $tweet.prependTo($tweetContainer);
+              n++;
+            }
+
+            var $user = $('<p ' +  'class="user user-head"><a href="#">@' + user + '</a></p>');
+            $user.prependTo($tweetContainer);
+
+            $user.click(function() {
+              location.reload();
+            });
+
+            clearTimeout(checkForTweetsTimer);
+            //return userUrl.length;
+            // var fu = function() {
+
+            // }
+            //fu();
+            //return JSON.parse(userUrl);
+          };
+        }
+
+        function displayDate(date) {
+          var options = {
+                          hour: 'numeric', minute: 'numeric', second: 'numeric'
+                        };
+          return new Intl.DateTimeFormat('en-AU', options).format(date);
+        }
+
+        function displayTweet(number) {
+          var tweet = streams.home[number];
+
+
+          var $tweet = $('<div>',{
+              class: 'tweet',
+              html: '<p class="user"><a href="#">@' + tweet.user + '</a> <span class="date">' + displayDate(tweet.created_at) + '</span></p>' + tweet.message,
+              href: '#',
+              click: function(){ displayTweetsForUser( tweet.user );return false;}
+          }).appendTo($tweetContainer);
+
+          // var $tweet = $('<div class="tweet">' + '<p><a onclick="displayTweetsForUser(' + "\"" + tweet.user + "\"" +
+          //   ')"' + ' href="#"' + 'class="user">@' + tweet.user + ': </a></p>' + tweet.message + '</div>');
+
+          $tweet.prependTo($tweetContainer);
+        };
+
+        function checkForTweets() {
+          if(currentData['totalTweets'] < streams.home.length) {
+            var prevCount = currentData.totalTweets;
+            var currCount = streams.home.length;
+            var diff = currCount - prevCount;
+
+            for(var i = prevCount; i < currCount; i++) {
+              displayTweet(i);
+              //console.log(diff);
+            }
+
+            setTotalTweets();
+            //currentData['totalTweets'] = streams.home.length;
+          }
+
+
+          checkForTweetsTimer = setTimeout(checkForTweets, 4000);
+          //$('.user').click(displayTweetsForUser($(this).id)); //on('click', displayTweetsForUser(this.id));
+        }
+
+
+        var $body = $('body');
+        //$body.html('');
+
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          displayTweet(index);
+          index -= 1;
+        }
+
+        checkForTweets();
+      })
+    })();
+
+
+    </script>
+  </body>
 </html>
