@@ -47,6 +47,12 @@
 
             clearTimeout(checkForTweetsTimer);
           };
+
+          $('.tweet').mouseenter(function() {
+            $( this ).addClass('highlight');
+          }).mouseleave(function() {
+            $( this ).removeClass('highlight');
+          });
         }
 
         function displayDate(date) {
