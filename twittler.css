@@ -48,6 +48,9 @@ a:link {
 a:hover {
   text-decoration: underline;
 }
+a:visited {
+  color: #3B94D9;
+}
 
 #tweet-container {}
 
